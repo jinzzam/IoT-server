@@ -43,9 +43,14 @@ module.exports = app;
 var port = 8801;
 var io = require('socket.io').listen(port);
 
+
 console.log('server running at ' + port + ' port');
 
 io.sockets.on('connection', function (socket) {
     socket.emit('connect');
     console.log('connected');
+    socket.on('rasp', function (data) {
+        console.log(data);
+        socket.emit('sendRasp', {'send': data});
+    })
 });
